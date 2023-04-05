@@ -8,6 +8,9 @@ isLogin = True
 
 class Login:
 
+    def desired_caps(self):
+        pass
+
     @staticmethod
     def login_to_dashboard():
         desired_caps = {
@@ -55,53 +58,54 @@ class Login:
             touch = TouchAction(driver)
             touch.tap(x=x, y=y).perform()
 
-            click_done()
+        click_done()
 
-            get_loginOTP = driver.find_element(By.XPATH, '//android.widget.Button[@content-desc="Get Login OTP"]')
-            get_loginOTP.click()
+        get_loginOTP = driver.find_element(By.XPATH, '//android.widget.Button[@content-desc="Get Login OTP"]')
+        get_loginOTP.click()
 
-            time.sleep(2)
+        time.sleep(2)
 
-            enter_otp = driver.find_element(By.XPATH,
-                                            '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                                            '.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout'
-                                            '/android.view.View/android.view.View/android.view.View/android.view.View'
-                                            '/android.view.View[2]/android.widget.EditText')
-            enter_otp.click()
-            enter_otp.send_keys('123456')
+        enter_otp = driver.find_element(By.XPATH,
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
+                                        '.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout'
+                                        '/android.view.View/android.view.View/android.view.View/android.view.View'
+                                        '/android.view.View[2]/android.widget.EditText')
+        enter_otp.click()
+        enter_otp.send_keys('123456')
 
-            driver.implicitly_wait(3)
-            # verify_phone_number = driver.find_element(By.XPATH, '//android.widget.Button[@content-desc="Verify Phone
-            # Number"]')
-            #
-            # verify_phone_number.click()
+        driver.implicitly_wait(3)
+        # verify_phone_number = driver.find_element(By.XPATH, '//android.widget.Button[@content-desc="Verify Phone
+        # Number"]')
+        #
+        # verify_phone_number.click()
 
-            select_singleUser = driver.find_element(By.XPATH, '//android.view.View[@content-desc = "Single User"]')
+        select_singleUser = driver.find_element(By.XPATH, '//android.view.View[@content-desc = "Single User"]')
 
-            select_singleUser.click()
+        select_singleUser.click()
 
-            singleUser_continue = driver.find_element(By.XPATH, '//android.widget.Button[@content-desc="CONTINUE"]')
+        singleUser_continue = driver.find_element(By.XPATH, '//android.widget.Button[@content-desc="CONTINUE"]')
 
-            singleUser_continue.click()
+        singleUser_continue.click()
 
-            # select_personalKhata = WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH,
-            # "//android.view.View[" "@content-desc" "='Personal" "Khata']")))
-            #
-            time.sleep(7)
+        # select_personalKhata = WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH,
+        # "//android.view.View[" "@content-desc" "='Personal" "Khata']")))
+        #
+        time.sleep(7)
 
-            select_personal_khata = driver.find_element(By.XPATH, '//android.view.View[@content-desc="Personal Khata"]')
+        select_personalKhata = driver.find_element(By.XPATH, '//android.view.View[@content-desc="Personal Khata"]')
 
-            select_personal_khata.click()
+        select_personalKhata.click()
 
-            personal_khata_continue = driver.find_element(By.XPATH, '//android.widget.Button[@content-desc="CONTINUE"]')
+        personalKhata_continue = driver.find_element(By.XPATH, '//android.widget.Button[@content-desc="CONTINUE"]')
 
-            personal_khata_continue.click()
+        personalKhata_continue.click()
 
-            allow_permission = driver.find_element(By.ID, 'com.android.permissioncontroller:id/permission_allow_button')
+        allow_permission = driver.find_element(By.ID, 'com.android.permissioncontroller:id/permission_allow_button')
 
-            allow_permission.click()
+        allow_permission.click()
 
-            time.sleep(4)
+        time.sleep(4)
 
 
 Login.login_to_dashboard()
+
