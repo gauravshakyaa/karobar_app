@@ -2,6 +2,8 @@ import time
 from appium import webdriver
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 isLogin = True
 
@@ -19,17 +21,30 @@ class Login:
 
         # Start the Appium driver
         desired_caps = {
-            # "deviceName": "RF8M703BZXW",  # device name for s10 phone
-            "deviceName": "A00000K580160801364",  # device name for nokia phone
+
+            "deviceName": self.device_name,  # device name for nokia phone
             "platformName": "Android",
-            "appPackage": "com.bytecaretech.merokarobar",
-            "appActivity": "com.bytecaretech.merokarobar.MainActivity",
-            "platformVersion": "11",
-            "noReset": True
-            # "app": "C:/Users/acer/Downloads/Karobar.apk"
-            # "automationName": "UiAutomator2"
+            "appPackage": self.app_package,
+            "appActivity": self.app_activity,
+            "platformVersion": self.platform_version,
+            "noReset": self.no_reset
         }
+        # desired_caps = {
+        #     # "deviceName": "RF8M703BZXW",  # device name for s10 phone
+        #     "deviceName": "A00000K580160801364",  # device name for nokia phone
+        #     "platformName": "Android",
+        #     "appPackage": "com.bytecaretech.merokarobar",
+        #     "appActivity": "com.bytecaretech.merokarobar.MainActivity",
+        #     "platformVersion": "11",
+        #     "noReset": True
+        #     # "app": "C:/Users/acer/Downloads/Karobar.apk"
+        #     # "automationName": "UiAutomator2"
+        # }
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+
+    def wait_for_element(self, locator, timeout=10):
+        wait = WebDriverWait(self.driver, timeout)
+        return wait.until(EC.presence_of_element_located(locator))
 
     def login(self, phonenum):
         # Click continue button. English is the default selected language.
