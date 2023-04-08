@@ -47,9 +47,9 @@ class Login:
 
     def select_language(self, language):
         # Click continue button. English is the default selected language.
-        language_continue = self.driver.find_element(By.XPATH, f'//android.widget.Button[@content-desc="{language}"]')
+        language_continue_locator = (By.XPATH, f'//android.widget.Button[@content-desc="{language}"]')
+        language_continue = self.wait_for_element(language_continue_locator)
         language_continue.click()
-        time.sleep(1)
 
     def login(self, phonenum):
         # Swipe the slogan page
@@ -67,7 +67,8 @@ class Login:
                                                  '/android'
                                                  '.widget.FrameLayout/android.widget.FrameLayout/android.widget'
                                                  '.FrameLayout'
-                                                 '/android.view.View/android.view.View/android.view.View/android.view.View'
+                                                 '/android.view.View/android.view.View/android.view.View/android.view'
+                                                 '.View'
                                                  '/android.view.View/android.widget.EditText')
         phone_textbox.click()
         phone_textbox.send_keys(phonenum)
@@ -130,7 +131,7 @@ class Login:
         time.sleep(4)
 
 
-appium_driver = Login('RF8M703BZXW', 'Android', 'com.bytecaretech.merokarobar',
-                      'com.bytecaretech.merokarobar.MainActivity', 11, False)
+appium_driver = Login('A00000K580160801364', 'Android', 'com.bytecaretech.merokarobar',
+                      'com.bytecaretech.merokarobar.MainActivity', '11', False)
 
 appium_driver.select_language('English')
