@@ -10,20 +10,19 @@ isLogin = True
 
 class Login:
 
-    def __init__(self, device_name, platform_name, app_package, app_activity, platform_version, no_reset=True):
+    def __init__(self, device_name, platform_name, app_package, app_activity, platform_version, no_reset):
         self.device_name = device_name
         self.platform_name = platform_name
         self.app_package = app_package
         self.app_activity = app_activity
         self.platform_version = platform_version
         self.no_reset = no_reset
-        self.driver = None
 
         # Start the Appium driver
         desired_caps = {
 
             "deviceName": self.device_name,  # device name for nokia phone
-            "platformName": "Android",
+            "platformName": self.platform_name,
             "appPackage": self.app_package,
             "appActivity": self.app_activity,
             "platformVersion": self.platform_version,
@@ -46,12 +45,13 @@ class Login:
         wait = WebDriverWait(self.driver, timeout)
         return wait.until(EC.presence_of_element_located(locator))
 
-    def login(self, phonenum):
+    def select_language(self, language):
         # Click continue button. English is the default selected language.
-        language_continue = self.driver.find_element(By.XPATH, '//android.widget.Button[@content-desc="Continue"]')
+        language_continue = self.driver.find_element(By.XPATH, f'//android.widget.Button[@content-desc="{language}"]')
         language_continue.click()
         time.sleep(1)
 
+    def login(self, phonenum):
         # Swipe the slogan page
         for i in range(1, 4):
             self.driver.swipe(600, 700, 100, 700, 150)
@@ -128,3 +128,9 @@ class Login:
         allow_permission.click()
 
         time.sleep(4)
+
+
+appium_driver = Login('RF8M703BZXW', 'Android', 'com.bytecaretech.merokarobar',
+                      'com.bytecaretech.merokarobar.MainActivity', 11, False)
+
+appium_driver.select_language('English')
