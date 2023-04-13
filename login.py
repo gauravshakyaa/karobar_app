@@ -31,21 +31,24 @@ class Login:
         # desired_caps = {
         #     # "deviceName": "RF8M703BZXW",  # device name for s10 phone
         #     "deviceName": "A00000K580160801364",  # device name for nokia phone
-
+        #     "platformName": "Android",
+        #     "appPackage": "com.bytecaretech.merokarobar",
+        #     "appActivity": "com.bytecaretech.merokarobar.MainActivity",
+        #     "platformVersion": "11",
+        #     "noReset": True
+        #     # "app": "C:/Users/acer/Downloads/Karobar.apk"
+        #     # "automationName": "UiAutomator2"
+        # }
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     def wait_for_element(self, locator, timeout=10):
-        # WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(locator))
         wait = WebDriverWait(self.driver, timeout)
         return wait.until(EC.presence_of_element_located(locator))
 
     def select_language(self, language):
         # Click continue button. English is the default selected language.
-
-        select_language_locator = (By.XPATH, f'//android.widget.ImageView[@content-desc="{language}"]')
-        hello = self.wait_for_element(select_language_locator)
-
-        language_continue = self.driver.find_element(By.XPATH, "//android.widget.Button[@content-desc='Continue']")
+        language_continue_locator = (By.XPATH, f'//android.widget.Button[@content-desc="{language}"]')
+        language_continue = self.wait_for_element(language_continue_locator)
         language_continue.click()
 
     def login(self, phonenum):
@@ -128,7 +131,7 @@ class Login:
         time.sleep(4)
 
 
-appium_driver = Login('RF8M703BZXW', 'Android', 'com.bytecaretech.merokarobar',
-                      'com.bytecaretech.merokarobar.MainActivity', '12', False)
+appium_driver = Login('A00000K580160801364', 'Android', 'com.bytecaretech.merokarobar',
+                      'com.bytecaretech.merokarobar.MainActivity', '11', False)
 
 appium_driver.select_language('English')
